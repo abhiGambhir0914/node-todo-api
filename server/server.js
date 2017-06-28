@@ -74,6 +74,8 @@ app.delete('/todos/:id',(req,res)=>{
 });
 
 
+// Todo.update({},{}{runValidators:true});
+
 app.patch('/todos/:id',(req,res)=>{
   var id=req.params.id;
   var body=_.pick(req.body,['text','completed']);
@@ -91,7 +93,7 @@ app.patch('/todos/:id',(req,res)=>{
     body.completedAt=null;
   }
 
-  Todo.findByIdAndUpdate(id,body,{new:true}).then((todo)=>{
+  Todo.findByIdAndUpdate(id,body,{new:true,runValidators:true}).then((todo)=>{
     if(!todo){
       return res.send(404).send();
     }
