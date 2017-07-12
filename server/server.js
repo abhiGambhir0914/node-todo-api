@@ -128,6 +128,17 @@ app.get('/users/me',authenticate,(req,res)=>{
 });
 
 
+//POST /users/login {email,password}
+app.post('/users/login',(req,res)=>{
+  var userData = _.pick(req.body,['email','password']);
+
+  User.findByCredentials(userData.email,userData.password).then((user)=>{
+    res.send(user);
+  }).catch((err)=>{
+    res.status(400).send();
+  });
+});
+
 
 
 
